@@ -5,4 +5,5 @@ export const ConfigSchema = Joi.object({
   DATABASE_URL: Joi.string().uri().required(),
   JWT_SECRET: Joi.string().required().default('jwtS3cr3t$$'),
   HOST: Joi.string().uri().default('http://localhost'),
+  JWT_EXPIRES_IN: Joi.string().default('7d'),
 });
