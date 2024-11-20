@@ -1,20 +1,17 @@
 import { Injectable, Logger } from '@nestjs/common';
-import { JwtService } from '@nestjs/jwt';
-import { IUserService } from './user.service.interface';
+import { BaseResponse, IUserService } from './user.interface';
 import { I18nContext, I18nService } from 'nestjs-i18n';
+import { SignUpDto } from './dto/user.dto';
 
 @Injectable()
 export class UserService implements IUserService {
-  constructor(
-    private readonly jwtService: JwtService,
-    private readonly i18n: I18nService,
-  ) {}
+  constructor(private readonly i18n: I18nService) {}
 
-  async signUp(): Promise<{ message: string; userId: number }> {
+  async signUp(signUpDto: SignUpDto): Promise<BaseResponse> {
     Logger.log(I18nContext.current().lang);
     // TODO: Change this
     return {
-      message: this.i18n.t('test.HELLO', { lang: 'uz' }),
+      message: this.i18n.t('test.HELLO', { lang: 'uz' }) + signUpDto.firstName,
       userId: 12,
     };
   }
