@@ -4,6 +4,7 @@
   "sourceRoot": "src",
   "compilerOptions": {
     "deleteOutDir": true,
-    "manualRestart": true
+    "manualRestart": true,
+    "assets": [{ "include": "i18n/**/*", "watchAssets": true }]
   }
 }
