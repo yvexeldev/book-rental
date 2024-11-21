@@ -1,0 +1,7 @@
+{
+  "EMAIL": "email bo'lishi kerak!",
+  "STRING": "stringda bo'lishi kerak!",
+  "REQUIRED": "berilgan bo'lishi kerak!",
+  "NUMBER": "son/number shaklida kelishi kerak!",
+  "PASSWORD": "kuchli parol bo'lishi kerak!"
+}

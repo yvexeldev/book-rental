@@ -1,0 +1,7 @@
+{
+  "EMAIL": "must be email!",
+  "STRING": "must be string!",
+  "REQUIRED": "required!",
+  "NUMBER": "must be number!",
+  "PASSWORD": "must be strong password!"
+}
