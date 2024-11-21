@@ -105,7 +105,7 @@ export class UserService implements IUserService {
   async signIn(signInDto: SignInDto): Promise<BaseResponse> {
     const user = await this.getUserByEmail(signInDto.email);
     if (user) {
-      const isPasswordCorrect = bcrypt.compare(
+      const isPasswordCorrect = await bcrypt.compare(
         signInDto.password,
         user.password,
       );
