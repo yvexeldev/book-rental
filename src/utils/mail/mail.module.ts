@@ -2,10 +2,26 @@ import { Global, Module } from '@nestjs/common';
 import { MailService } from './mail.service';
 import { ConfigService } from '@nestjs/config';
 import * as nodemailer from 'nodemailer';
-import { MailTransporter } from '../config/clients';
+import { MailTransporter, RABBITMQ } from '../config/constants';
+import { RabbitMQModule } from '@golevelup/nestjs-rabbitmq';
+import { MailConsumerService } from './mail.consumer';
 
 @Global()
 @Module({
+  imports: [
+    RabbitMQModule.forRootAsync(RabbitMQModule, {
+      useFactory: (configService: ConfigService) => ({
+        exchanges: [
+          {
+            name: RABBITMQ.EXCHANGES.EMAIL,
+            type: 'direct',
+          },
+        ],
+        uri: configService.get<string>('RABBITMQ_URI'),
+      }),
+      inject: [ConfigService],
+    }),
+  ],
   providers: [
     {
       provide: MailTransporter,
@@ -23,8 +39,9 @@ import { MailTransporter } from '../config/clients';
       inject: [ConfigService],
     },
     MailService,
+    MailConsumerService,
   ],
   controllers: [],
-  exports: [MailService],
+  exports: [MailService, MailConsumerService],
 })
 export class MailModule {}
