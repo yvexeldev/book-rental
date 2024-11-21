@@ -1,0 +1,5 @@
+{
+  "LOGIN": "You have successfully logged in!",
+  "ALREADY_EXISTS": "User with this email already exists!",
+  "EMAIL_SENT": "Check your email! We've sent your verification code!"
+}
