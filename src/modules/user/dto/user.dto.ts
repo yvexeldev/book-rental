@@ -32,3 +32,25 @@ export class SignUpDto {
   @IsNotEmpty()
   password: string;
 }
+
+export class SignInDto {
+  @IsString()
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  password: string;
+}
+
+export class VerifyOtpDto {
+  @IsNumber()
+  @IsNotEmpty()
+  otp: number;
+
+  @IsString()
+  @IsNotEmpty()
+  @IsEmail()
+  email: string;
+}
