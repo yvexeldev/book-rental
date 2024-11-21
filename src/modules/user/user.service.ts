@@ -52,7 +52,7 @@ export class UserService implements IUserService {
     return await this.jwtService.signAsync(payload);
   }
 
-  private async generateAndSaveOtp(email: string): Promise<void> {
+  private async generateAndSaveOtp(email: string): Promise<string> {
     // otp generating
     const otp = String(crypto.randomInt(100000, 999999));
 
