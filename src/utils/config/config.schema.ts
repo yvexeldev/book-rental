@@ -7,4 +7,9 @@ export const ConfigSchema = Joi.object({
   HOST: Joi.string().default('localhost'),
   JWT_EXPIRES_IN: Joi.string().default('7d'),
   I18N_FALLBACK_LANGUAGE: Joi.string().default('en'),
+  SMTP_USER: Joi.string().email().required(),
+  SMTP_PASSWORD: Joi.string().required(),
+  SMTP_PORT: Joi.number().default(587),
+  SMTP_HOST: Joi.string().default('smtp.gmail.com'),
+  SMTP_SECURE: Joi.boolean().default(false),
 });
