@@ -59,9 +59,7 @@ export class UserService implements IUserService {
     // saving to redis
     await this.redisService.set(`otp:${email}`, otp, 180);
     Logger.log({ otp });
-
-    // TODO: THIS IS WITHOUT RABBIT!
-    await this.mailService.sendOtp(email, otp);
+    return otp;
   }
 
   private async checkOtp(otp: number, email: string): Promise<boolean> {
