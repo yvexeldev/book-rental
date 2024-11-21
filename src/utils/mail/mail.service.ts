@@ -2,9 +2,10 @@ import { Inject, Injectable } from '@nestjs/common';
 
 import { Transporter } from 'nodemailer';
 import { MailTransporter } from '../config/clients';
+import { IMailService } from './mail.interface';
 
 @Injectable()
-export class MailService {
+export class MailService implements IMailService {
   constructor(
     @Inject(MailTransporter) private readonly transporter: Transporter,
   ) {}

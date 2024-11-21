@@ -1,9 +1,10 @@
 import { Injectable, Inject } from '@nestjs/common';
 import { Redis } from 'ioredis';
 import { RedisClient } from '../config/clients';
+import { IRedisService } from './redis.interface';
 
 @Injectable()
-export class RedisService {
+export class RedisService implements IRedisService {
   constructor(@Inject(RedisClient) private readonly redisClient: Redis) {}
 
   async set(
