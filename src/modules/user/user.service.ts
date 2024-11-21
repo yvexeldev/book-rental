@@ -14,6 +14,8 @@ import * as crypto from 'node:crypto';
 import { PrismaService } from '../../utils/prisma';
 import { $Enums, User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
+import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
+import { RABBITMQ } from '../../utils/config/constants';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -23,6 +25,7 @@ export class UserService implements IUserService {
     private readonly redisService: RedisService,
     private readonly mailService: MailService,
     private readonly prismaService: PrismaService,
+    private amqpConnection: AmqpConnection,
   ) {}
 
   async getUserByEmail(email: string): Promise<User | null> {
@@ -86,10 +89,16 @@ export class UserService implements IUserService {
     const user = await this.prismaService.user.create({
       data: { ...signUpDto, password: hashedPassword },
     });
-    // 1 - Generate otp
-    // 2 - Save it to redis
-    await this.generateAndSaveOtp(user.email);
-    // 3 - Respond to user that email sent!
+    const otp = await this.generateAndSaveOtp(user.email);
+
+    await this.amqpConnection.publish(
+      RABBITMQ.EXCHANGES.EMAIL,
+      RABBITMQ.ROUTING_KEYS.SEND_OTP,
+      {
+        email: user.email,
+        otp: otp,
+      },
+    );
 
     return {
       message: this.i18n.t('user.EMAIL_SENT'),
