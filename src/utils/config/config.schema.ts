@@ -14,4 +14,5 @@ export const ConfigSchema = Joi.object({
   SMTP_SECURE: Joi.boolean().default(false),
   REDIS_PORT: Joi.number().default(6379),
   REDIS_HOST: Joi.string().default('localhost'),
+  RABBITMQ_URI: Joi.string().uri().required(),
 });
