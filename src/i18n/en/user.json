@@ -1,5 +1,9 @@
 {
   "LOGIN": "You have successfully logged in!",
   "ALREADY_EXISTS": "User with this email already exists!",
-  "EMAIL_SENT": "Check your email! We've sent your verification code!"
+  "EMAIL_SENT": "Check your email! We've sent your verification code!",
+  "NOT_FOUND": "User with this data not found!",
+  "PASSWORD_INCORRECT": "Password or email incorrect!",
+  "REGISTER": "You have successfully registered!",
+  "OTP_INCORRECT": "Code is incorrect!"
 }
