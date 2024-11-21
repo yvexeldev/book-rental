@@ -1,8 +1,8 @@
-import { SignUpDto } from './dto/user.dto';
+import { SignUpDto, SignInDto, VerifyOtpDto } from './dto/user.dto';
 
 export type BaseResponse = {
   message: string;
-  userId: number;
+  data: object;
 };
 
 export enum Role {
@@ -13,8 +13,6 @@ export enum Role {
 
 export interface IUserService {
   signUp(signUpDto: SignUpDto): Promise<BaseResponse>;
-}
-
-export interface IAuthService {
-  generateToken(userId: number, role: Role): Promise<string>;
+  signIn(signInDto: SignInDto): Promise<BaseResponse>;
+  verifyOtp(verifyOtpDto: VerifyOtpDto): Promise<BaseResponse>;
 }
