@@ -84,7 +84,7 @@ export class UserService implements IUserService {
 
     const hashedPassword = await bcrypt.hash(signUpDto.password, 12);
     const user = await this.prismaService.user.create({
-      data: { password: hashedPassword, ...signUpDto },
+      data: { ...signUpDto, password: hashedPassword },
     });
     // 1 - Generate otp
     // 2 - Save it to redis
