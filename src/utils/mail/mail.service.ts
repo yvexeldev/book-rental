@@ -1,6 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
 
-// import { MailTransporter } from './mail.module';
 import { Transporter } from 'nodemailer';
 import { MailTransporter } from '../config/clients';
 
