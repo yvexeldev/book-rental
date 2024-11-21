@@ -10,8 +10,8 @@ import {
   QueryResolver,
   HeaderResolver,
 } from 'nestjs-i18n';
-import { MailModule } from './utils/mail/mail.module';
-import { RedisModule } from './utils/redis/redis.module';
+
+import { UtilsModule } from './utils/utils.module';
 @Module({
   imports: [
     IndexModule,
@@ -36,8 +36,8 @@ import { RedisModule } from './utils/redis/redis.module';
       ],
       inject: [ConfigService],
     }),
-    RedisModule,
-    MailModule,
+
+    UtilsModule,
   ],
   controllers: [],
   providers: [],
