@@ -5,12 +5,6 @@ export type BaseResponse = {
   data: object;
 };
 
-export enum Role {
-  USER = 'USER',
-  ADMIN = 'ADMIN',
-  SUPERADMIN = 'SUPERADMIN',
-}
-
 export interface IUserService {
   signUp(signUpDto: SignUpDto): Promise<BaseResponse>;
   signIn(signInDto: SignInDto): Promise<BaseResponse>;
