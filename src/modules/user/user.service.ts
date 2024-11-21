@@ -106,9 +106,6 @@ export class UserService implements IUserService {
         user,
       },
     };
-
-    // TODO:
-    // 4 - Send it to user's mail (but with RabbitMQ Queueing)
   }
 
   async signIn(signInDto: SignInDto): Promise<BaseResponse> {
