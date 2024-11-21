@@ -12,10 +12,16 @@ async function bootstrap() {
   const HOST = config.get<string>('HOST');
 
   app.setGlobalPrefix('api');
-  app.useGlobalPipes(new ValidationPipe());
+  app.useGlobalPipes(
+    new ValidationPipe({
+      whitelist: true,
+      stopAtFirstError: true,
+      transform: true,
+    }),
+  );
 
   await app.listen(PORT, () => {
-    Logger.log(`Server is running on ${HOST}:${PORT}`);
+    Logger.log(`Server is running on http://${HOST}:${PORT}`);
   });
 }
 bootstrap();
