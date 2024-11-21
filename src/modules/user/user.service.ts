@@ -35,7 +35,7 @@ export class UserService implements IUserService {
     return user;
   }
 
-  private async checkUser(email: string) {
+  private async checkUser(email: string): Promise<void> {
     const user = await this.getUserByEmail(email);
     if (user) throw new BadRequestException(this.i18n.t('user.ALREADY_EXISTS'));
   }
