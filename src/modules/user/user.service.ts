@@ -22,9 +22,6 @@ import { $Enums, User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { RABBITMQ } from '../../utils/config/constants';
-import { when } from 'joi';
-
-class SetUserNameDto {}
 
 @Injectable()
 export class UserService implements IUserService {
