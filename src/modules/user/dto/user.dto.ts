@@ -55,3 +55,30 @@ export class VerifyOtpDto {
   @IsEmail()
   email: string;
 }
+
+export class UpdateUserDto {
+  @IsString()
+  @IsOptional()
+  @MinLength(2)
+  @MaxLength(255)
+  firstName: string;
+
+  @IsString()
+  @IsOptional()
+  @MinLength(2)
+  @MaxLength(255)
+  lastName: string;
+
+  @IsString()
+  @IsOptional()
+  @IsStrongPassword()
+  password: string;
+}
+
+export class SetUsernameDto {
+  @IsString()
+  @IsNotEmpty()
+  @MinLength(5)
+  @MaxLength(20)
+  username: string;
+}
