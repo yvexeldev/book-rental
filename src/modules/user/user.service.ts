@@ -9,7 +9,6 @@ import { I18nService } from 'nestjs-i18n';
 import { SignInDto, SignUpDto, VerifyOtpDto } from './dto/user.dto';
 import { JwtService } from '@nestjs/jwt';
 import { RedisService } from '../../utils/redis/redis.service';
-import { MailService } from '../../utils/mail/mail.service';
 import * as crypto from 'node:crypto';
 import { PrismaService } from '../../utils/prisma';
 import { $Enums, User } from '@prisma/client';
@@ -23,7 +22,6 @@ export class UserService implements IUserService {
     private readonly i18n: I18nService,
     private readonly jwtService: JwtService,
     private readonly redisService: RedisService,
-    private readonly mailService: MailService,
     private readonly prismaService: PrismaService,
     private amqpConnection: AmqpConnection,
   ) {}
@@ -70,42 +68,32 @@ export class UserService implements IUserService {
     return +redisOtp == otp;
   }
 
-  private async verifyUser(id: number): Promise<void> {
-    await this.prismaService.user.update({
-      where: {
-        id,
-        isVerified: false,
-      },
-      data: {
-        isVerified: true,
-      },
-    });
-  }
-
   async signUp(signUpDto: SignUpDto): Promise<BaseResponse> {
-    await this.checkUser(signUpDto.email);
+    return this.prismaService.$transaction(async (prisma) => {
+      await this.checkUser(signUpDto.email);
 
-    const hashedPassword = await bcrypt.hash(signUpDto.password, 12);
-    const user = await this.prismaService.user.create({
-      data: { ...signUpDto, password: hashedPassword },
+      const hashedPassword = await bcrypt.hash(signUpDto.password, 12);
+      const user = await prisma.user.create({
+        data: { ...signUpDto, password: hashedPassword },
+      });
+      const otp = await this.generateAndSaveOtp(user.email);
+
+      await this.amqpConnection.publish(
+        RABBITMQ.EXCHANGES.EMAIL,
+        RABBITMQ.ROUTING_KEYS.SEND_OTP,
+        {
+          email: user.email,
+          otp: otp,
+        },
+      );
+
+      return {
+        message: this.i18n.t('user.EMAIL_SENT'),
+        data: {
+          user,
+        },
+      };
     });
-    const otp = await this.generateAndSaveOtp(user.email);
-
-    await this.amqpConnection.publish(
-      RABBITMQ.EXCHANGES.EMAIL,
-      RABBITMQ.ROUTING_KEYS.SEND_OTP,
-      {
-        email: user.email,
-        otp: otp,
-      },
-    );
-
-    return {
-      message: this.i18n.t('user.EMAIL_SENT'),
-      data: {
-        user,
-      },
-    };
   }
 
   async signIn(signInDto: SignInDto): Promise<BaseResponse> {
@@ -122,7 +110,7 @@ export class UserService implements IUserService {
           data: { token },
         };
       } else {
-        throw new BadRequestException(this.i18n.t('user.PASSWORD_INCRORRECT'));
+        throw new BadRequestException(this.i18n.t('user.PASSWORD_INCORRECT'));
       }
     } else {
       throw new NotFoundException(this.i18n.t('user.NOT_FOUND'));
@@ -130,34 +118,58 @@ export class UserService implements IUserService {
   }
 
   async verifyOtp(verifyOtpDto: VerifyOtpDto): Promise<BaseResponse> {
-    const condition = await this.checkOtp(verifyOtpDto.otp, verifyOtpDto.email);
-    if (condition) {
-      const user = await this.prismaService.user.findFirst({
-        where: {
-          email: verifyOtpDto.email,
-          isVerified: false,
-        },
-      });
+    return this.prismaService.$transaction(async (prisma) => {
+      const condition = await this.checkOtp(
+        verifyOtpDto.otp,
+        verifyOtpDto.email,
+      );
+      if (condition) {
+        const user = await prisma.user.findFirst({
+          where: {
+            email: verifyOtpDto.email,
+            isVerified: false,
+          },
+        });
+        if (!user) {
+          throw new BadRequestException(this.i18n.t('user.ALREADY_EXISTS'));
+        }
+        await prisma.user.update({
+          where: { id: user.id },
+          data: { isVerified: true },
+        });
+        await prisma.user.deleteMany({
+          where: {
+            email: verifyOtpDto.email,
+            isVerified: false,
+          },
+        });
 
-      await this.verifyUser(user.id);
-      await this.prismaService.user.deleteMany({
-        where: {
-          email: verifyOtpDto.email,
-          isVerified: false,
-        },
-      });
+        const token = await this.generateToken(user.id, user.role);
 
-      const token = await this.generateToken(user.id, user.role);
+        return {
+          message: this.i18n.t('user.REGISTER'),
+          data: { token },
+        };
+      } else {
+        return {
+          message: this.i18n.t('user.OTP_INCORRECT'),
+          data: { verifyOtpDto },
+        };
+      }
+    });
+  }
 
+  async getUserById(id: number): Promise<BaseResponse | User> {
+    const user = await this.prismaService.user.findFirst({
+      where: { id, isVerified: true },
+    });
+
+    if (!user) {
       return {
-        message: this.i18n.t('user.REGISTER'),
-        data: { token },
-      };
-    } else {
-      return {
-        message: this.i18n.t('user.OTP_INCORRECT'),
-        data: { verifyOtpDto },
+        message: this.i18n.t('user.NOT_FOUND'),
+        data: {},
       };
     }
+    return user;
   }
 }
