@@ -1,4 +1,4 @@
-import { SignUpDto, SignInDto, VerifyOtpDto } from './dto/user.dto';
+import { SignUpDto, SignInDto } from './dto/user.dto';
 import { User } from '@prisma/client';
 
 export type BaseResponse = {
