@@ -1,9 +1,10 @@
 {
   "LOGIN": "Siz muvofaqqiyatli tizimga kirdingiz!",
-  "ALREADY_EXISTS": "Bu email bilan foydalanuvchi allaqachon ro'yxatdan o'tgan!",
+  "ALREADY_EXISTS": "Bu malumotlar bilan foydalanuvchi allaqachon ro'yxatdan o'tgan!",
   "EMAIL_SENT": "Emailingizga kod yuborildi! Tekshirib ko'ring",
   "NOT_FOUND": "Bunday ma'lumotlar bilan foydalanuvchi topilmadi!",
   "PASSWORD_INCORRECT": "Parol yoki email xato!",
   "REGISTER": "Siz muvofaqqiyatli ro'yxatdan o'tdingiz!",
-  "OTP_INCORRECT": "Kod noto'g'ri!"
+  "OTP_INCORRECT": "Kod noto'g'ri!",
+  "UPDATE": "Malumotlaringiz muvofaqqiyatli yangilandi!"
 }
