@@ -11,7 +11,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { UserService } from './user.service';
-import { BaseResponse } from './user.interface';
+
 import {
   SetUsernameDto,
   SignInDto,
@@ -19,6 +19,7 @@ import {
   UpdateUserDto,
   VerifyOtpDto,
 } from './dto/user.dto';
+import { BaseResponse } from '../../utils/config/interfaces';
 
 @Controller('user')
 export class UserController {

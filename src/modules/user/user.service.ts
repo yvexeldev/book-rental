@@ -5,7 +5,7 @@ import {
   Logger,
   NotFoundException,
 } from '@nestjs/common';
-import { BaseResponse, IUserService } from './user.interface';
+import { IUserService } from './user.interface';
 import { I18nService } from 'nestjs-i18n';
 import {
   SetUsernameDto,
@@ -22,6 +22,7 @@ import { $Enums, User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { RABBITMQ } from '../../utils/config/constants';
+import { BaseResponse } from '../../utils/config/interfaces';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -96,9 +97,7 @@ export class UserService implements IUserService {
 
       return {
         message: this.i18n.t('user.EMAIL_SENT'),
-        data: {
-          user,
-        },
+        data: user,
       };
     });
   }

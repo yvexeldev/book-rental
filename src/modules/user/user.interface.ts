@@ -1,10 +1,6 @@
 import { SignUpDto, SignInDto } from './dto/user.dto';
 import { User } from '@prisma/client';
-
-export type BaseResponse = {
-  message: string;
-  data: object | null;
-};
+import { BaseResponse } from '../../utils/config/interfaces';
 
 export interface IUserService {
   /**
