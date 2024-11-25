@@ -1,7 +1,15 @@
 {
-  "EMAIL": "must be email!",
-  "STRING": "must be string!",
-  "REQUIRED": "required!",
-  "NUMBER": "must be number!",
-  "PASSWORD": "must be strong password!"
+  "book": {
+    "VALIDATION_TITLE_STRING": "Title must be a string.",
+    "VALIDATION_TITLE_MIN_LENGTH": "Title must be at least 3 characters long.",
+    "VALIDATION_TITLE_MAX_LENGTH": "Title cannot exceed 255 characters.",
+    "VALIDATION_AUTHOR_STRING": "Author must be a string.",
+    "VALIDATION_AUTHOR_MIN_LENGTH": "Author must be at least 3 characters long.",
+    "VALIDATION_AUTHOR_MAX_LENGTH": "Author cannot exceed 255 characters.",
+    "VALIDATION_ISBN_STRING": "ISBN must be a string.",
+    "VALIDATION_ISBN_MIN_LENGTH": "ISBN must be at least 10 characters long.",
+    "VALIDATION_ISBN_MAX_LENGTH": "ISBN cannot exceed 13 characters.",
+    "VALIDATION_AVAILABLE_COPIES_INT": "Available copies must be an integer.",
+    "VALIDATION_AVAILABLE_COPIES_MIN": "Available copies cannot be less than 0."
+  }
 }
