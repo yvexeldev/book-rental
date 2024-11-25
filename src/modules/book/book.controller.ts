@@ -30,10 +30,7 @@ export class BookController {
       limitNumber,
       search,
     );
-    return {
-      message: 'success',
-      data: books,
-    };
+    return books;
   }
 
   @Get('/:id')

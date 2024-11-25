@@ -79,7 +79,6 @@ export class BookService {
       },
       include,
     });
-    if (!book) throw new NotFoundException(this.i18n.t('book.NOT_FOUND'));
     return book;
   }
 
