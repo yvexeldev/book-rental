@@ -9,5 +9,21 @@
   "VALIDATION_ISBN_MIN_LENGTH": "ISBN must be at least 10 characters long.",
   "VALIDATION_ISBN_MAX_LENGTH": "ISBN cannot exceed 13 characters.",
   "VALIDATION_AVAILABLE_COPIES_INT": "Available copies must be an integer.",
-  "VALIDATION_AVAILABLE_COPIES_MIN": "Available copies cannot be less than 0."
+  "VALIDATION_AVAILABLE_COPIES_MIN": "Available copies cannot be less than 0.",
+  "VALIDATION_USER_ID_REQUIRED": "User ID is required and must be a number.",
+  "VALIDATION_BOOK_ID_REQUIRED": "Book ID is required and must be a number.",
+  "VALIDATION_DATE_STRING": "Date must be in ISO 8601 format.",
+  "VALIDATION_FIRST_NAME_STRING": "First name must be a string.",
+  "VALIDATION_FIRST_NAME_MIN_LENGTH": "First name must be at least 2 characters long.",
+  "VALIDATION_FIRST_NAME_MAX_LENGTH": "First name cannot exceed 75 characters.",
+  "VALIDATION_LAST_NAME_STRING": "Last name must be a string.",
+  "VALIDATION_LAST_NAME_MIN_LENGTH": "Last name must be at least 2 characters long.",
+  "VALIDATION_LAST_NAME_MAX_LENGTH": "Last name cannot exceed 75 characters.",
+  "VALIDATION_EMAIL_VALID": "Email must be a valid email address.",
+  "VALIDATION_PASSWORD_STRONG": "Password must be strong and meet complexity requirements.",
+  "VALIDATION_PASSWORD_REQUIRED": "Password is required.",
+  "VALIDATION_OTP_REQUIRED": "OTP must be a number and is required.",
+  "VALIDATION_USERNAME_STRING": "Username must be a string.",
+  "VALIDATION_USERNAME_MIN_LENGTH": "Username must be at least 5 characters long.",
+  "VALIDATION_USERNAME_MAX_LENGTH": "Username cannot exceed 20 characters."
 }

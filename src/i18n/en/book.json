@@ -1,4 +1,5 @@
 {
   "NOT_FOUND": "Book not found!",
-  "ISBN_ALREADY_EXISTS": "book with this ISBN already exists!"
+  "ISBN_ALREADY_EXISTS": "book with this ISBN already exists!",
+  "NO_COPIES_AVAILABLE": "No Copies available for this book!"
 }

@@ -1,4 +1,5 @@
 {
   "NOT_FOUND": "Kitob topilmadi!",
-  "ISBN_ALREADY_EXISTS": "Bunday ISBNlik kitob mavjud!"
+  "ISBN_ALREADY_EXISTS": "Bunday ISBNlik kitob mavjud!",
+  "NO_COPIES_AVAILABLE": "Kitob hozircha qolmagan!"
 }

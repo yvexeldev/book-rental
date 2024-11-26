@@ -1,0 +1,10 @@
+{
+  "NOT_FOUND": "Ijara yozuvi topilmadi",
+  "UPDATE_FAILED": "Ijara yozuvini yangilashda xato",
+  "DELETE_FAILED": "Ijara yozuvini o'chirishda xato",
+  "DELETED_SUCCESSFULLY": "Ijara yozuvi muvaffaqiyatli o'chirildi",
+  "INVALID_RENTAL_PERIOD": "Noto'g'ri ijara muddati ko'rsatilgan",
+  "ALREADY_RETURNED": "Kitob allaqachon qaytarilgan",
+  "OVERDUE": "Ijara muddati o'tib ketgan",
+  "CANNOT_UPDATE_RETURNED": "Qaytarilgan ijarani yangilash mumkin emas"
+}

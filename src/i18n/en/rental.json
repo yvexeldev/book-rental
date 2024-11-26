@@ -1,0 +1,10 @@
+{
+  "NOT_FOUND": "Rental record not found",
+  "UPDATE_FAILED": "Failed to update rental record",
+  "DELETE_FAILED": "Failed to delete rental record",
+  "DELETED_SUCCESSFULLY": "Rental record deleted successfully",
+  "INVALID_RENTAL_PERIOD": "Invalid rental period specified",
+  "ALREADY_RETURNED": "Book has already been returned",
+  "OVERDUE": "Rental is overdue",
+  "CANNOT_UPDATE_RETURNED": "Cannot update a returned rental"
+}
