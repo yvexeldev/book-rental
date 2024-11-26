@@ -8,6 +8,7 @@ import { BaseResponse } from '../../utils/config/interfaces';
 import { I18nService } from 'nestjs-i18n';
 import { Book } from '@prisma/client';
 import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
+import { IBookService } from './book.interface';
 
 const include = {
   rentals: {
@@ -18,7 +19,7 @@ const include = {
 };
 
 @Injectable()
-export class BookService {
+export class BookService implements IBookService {
   constructor(
     private readonly prismaService: PrismaService,
     private readonly i18n: I18nService,
