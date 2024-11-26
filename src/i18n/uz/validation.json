@@ -1,15 +1,13 @@
 {
-  "book": {
-    "VALIDATION_TITLE_STRING": "Sarlavha matn bo'lishi kerak.",
-    "VALIDATION_TITLE_MIN_LENGTH": "Sarlavha kamida 3 ta belgidan iborat bo'lishi kerak.",
-    "VALIDATION_TITLE_MAX_LENGTH": "Sarlavha 255 ta belgidan oshmasligi kerak.",
-    "VALIDATION_AUTHOR_STRING": "Muallif matn bo'lishi kerak.",
-    "VALIDATION_AUTHOR_MIN_LENGTH": "Muallifning ismi kamida 3 ta belgidan iborat bo'lishi kerak.",
-    "VALIDATION_AUTHOR_MAX_LENGTH": "Muallifning ismi 255 ta belgidan oshmasligi kerak.",
-    "VALIDATION_ISBN_STRING": "ISBN matn bo'lishi kerak.",
-    "VALIDATION_ISBN_MIN_LENGTH": "ISBN kamida 10 ta belgidan iborat bo'lishi kerak.",
-    "VALIDATION_ISBN_MAX_LENGTH": "ISBN 13 ta belgidan oshmasligi kerak.",
-    "VALIDATION_AVAILABLE_COPIES_INT": "Mavjud nusxalar butun son bo'lishi kerak.",
-    "VALIDATION_AVAILABLE_COPIES_MIN": "Mavjud nusxalar soni 0 dan kam bo'lmasligi kerak."
-  }
+  "VALIDATION_TITLE_STRING": "Sarlavha matn bo'lishi kerak.",
+  "VALIDATION_TITLE_MIN_LENGTH": "Sarlavha kamida 3 ta belgidan iborat bo'lishi kerak.",
+  "VALIDATION_TITLE_MAX_LENGTH": "Sarlavha 255 ta belgidan oshmasligi kerak.",
+  "VALIDATION_AUTHOR_STRING": "Muallif matn bo'lishi kerak.",
+  "VALIDATION_AUTHOR_MIN_LENGTH": "Muallifning ismi kamida 3 ta belgidan iborat bo'lishi kerak.",
+  "VALIDATION_AUTHOR_MAX_LENGTH": "Muallifning ismi 255 ta belgidan oshmasligi kerak.",
+  "VALIDATION_ISBN_STRING": "ISBN matn bo'lishi kerak.",
+  "VALIDATION_ISBN_MIN_LENGTH": "ISBN kamida 10 ta belgidan iborat bo'lishi kerak.",
+  "VALIDATION_ISBN_MAX_LENGTH": "ISBN 13 ta belgidan oshmasligi kerak.",
+  "VALIDATION_AVAILABLE_COPIES_INT": "Mavjud nusxalar butun son bo'lishi kerak.",
+  "VALIDATION_AVAILABLE_COPIES_MIN": "Mavjud nusxalar soni 0 dan kam bo'lmasligi kerak."
 }
