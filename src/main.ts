@@ -2,7 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { NestExpressApplication } from '@nestjs/platform-express';
-import { Logger, ValidationPipe } from '@nestjs/common';
+import { Logger } from '@nestjs/common';
+import { I18nValidationExceptionFilter, I18nValidationPipe } from 'nestjs-i18n';
 
 async function bootstrap() {
   const app = await NestFactory.create<NestExpressApplication>(AppModule);
@@ -13,10 +14,14 @@ async function bootstrap() {
 
   app.setGlobalPrefix('api');
   app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
+    new I18nValidationPipe({
       stopAtFirstError: true,
-      transform: true,
+    }),
+  );
+
+  app.useGlobalFilters(
+    new I18nValidationExceptionFilter({
+      detailedErrors: false,
     }),
   );
 
