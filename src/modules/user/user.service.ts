@@ -234,10 +234,18 @@ export class UserService implements IUserService {
     };
   }
 
-  async getAllusers(isVerified: boolean): Promise<BaseResponse> {
-    const users = await this.prismaService.user.findMany({
-      where: { isVerified: isVerified },
-    });
+  async getAllusers(isVerified?: string): Promise<BaseResponse> {
+    if (isVerified) {
+      const users = await this.prismaService.user.findMany({
+        where: { isVerified: isVerified === 'true' ? true : false },
+      });
+
+      return {
+        message: 'success',
+        data: { users },
+      };
+    }
+    const users = await this.prismaService.user.findMany();
 
     return {
       message: 'success',

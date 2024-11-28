@@ -4,7 +4,6 @@ import {
   Delete,
   Get,
   Param,
-  ParseBoolPipe,
   ParseIntPipe,
   Post,
   Put,
@@ -20,7 +19,7 @@ import {
   UpdateUserDto,
   VerifyOtpDto,
 } from './dto/user.dto';
-import { BaseResponse, JwtPayload, UserEntity } from '../../utils/config/types';
+import { BaseResponse, UserEntity } from '../../utils/config/types';
 import { UserGuard } from 'src/utils/guard/user.guard';
 import { User } from 'src/utils/decorators/get-user';
 
@@ -29,7 +28,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
   @Get('users')
   async getAllUsers(
-    @Query('isVerified', ParseBoolPipe) isVerified?: boolean,
+    @Query('isVerified') isVerified?: string,
   ): Promise<BaseResponse> {
     return await this.userService.getAllusers(isVerified);
   }
