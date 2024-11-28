@@ -16,6 +16,7 @@ async function bootstrap() {
   app.useGlobalPipes(
     new I18nValidationPipe({
       stopAtFirstError: true,
+      whitelist: true,
     }),
   );
 

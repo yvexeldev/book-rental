@@ -1,4 +1,4 @@
-import { BaseResponse } from '../../utils/config/interfaces';
+import { BaseResponse } from '../../utils/config/types';
 import { Book } from '@prisma/client';
 import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
 

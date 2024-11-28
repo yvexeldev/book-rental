@@ -22,7 +22,7 @@ import { $Enums, User } from '@prisma/client';
 import * as bcrypt from 'bcryptjs';
 import { AmqpConnection } from '@golevelup/nestjs-rabbitmq';
 import { RABBITMQ } from '../../utils/config/constants';
-import { BaseResponse } from '../../utils/config/interfaces';
+import { BaseResponse, JwtPayload } from '../../utils/config/types';
 
 @Injectable()
 export class UserService implements IUserService {
@@ -53,8 +53,8 @@ export class UserService implements IUserService {
     userId: number,
     role: $Enums.Role,
   ): Promise<string> {
-    const payload = {
-      userId,
+    const payload: JwtPayload = {
+      sub: userId,
       role,
     };
 

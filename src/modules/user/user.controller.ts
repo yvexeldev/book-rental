@@ -9,6 +9,7 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 
@@ -19,7 +20,9 @@ import {
   UpdateUserDto,
   VerifyOtpDto,
 } from './dto/user.dto';
-import { BaseResponse } from '../../utils/config/interfaces';
+import { BaseResponse, JwtPayload, UserEntity } from '../../utils/config/types';
+import { UserGuard } from 'src/utils/guard/user.guard';
+import { User } from 'src/utils/decorators/get-user';
 
 @Controller('user')
 export class UserController {
@@ -79,11 +82,12 @@ export class UserController {
     return await this.userService.updateUser(id, updateUserDto);
   }
 
+  @UseGuards(UserGuard)
   @Put('/username/:id')
   async setUsername(
-    @Param('id', ParseIntPipe) id: number,
+    @User() user: UserEntity,
     @Body() setUserNameDto: SetUsernameDto,
   ) {
-    return await this.userService.setUsername(id, setUserNameDto);
+    return await this.userService.setUsername(user.id, setUserNameDto);
   }
 }

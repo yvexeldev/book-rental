@@ -14,10 +14,10 @@ import {
 import { UtilsModule } from './utils/utils.module';
 @Module({
   imports: [
-    IndexModule,
-
     ConfigModule.forRoot({
       isGlobal: true,
+      envFilePath:
+        process.env.NODE_ENV === 'production' ? '.env' : '.env.development',
       validationSchema: ConfigSchema,
     }),
 
@@ -36,6 +36,7 @@ import { UtilsModule } from './utils/utils.module';
       ],
       inject: [ConfigService],
     }),
+    IndexModule,
 
     UtilsModule,
   ],

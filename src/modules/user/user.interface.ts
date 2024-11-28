@@ -1,6 +1,6 @@
 import { SignUpDto, SignInDto } from './dto/user.dto';
 import { User } from '@prisma/client';
-import { BaseResponse } from '../../utils/config/interfaces';
+import { BaseResponse } from '../../utils/config/types';
 
 export interface IUserService {
   /**

@@ -12,7 +12,7 @@ import {
 } from '@nestjs/common';
 import { RentalService } from './rental.service';
 import { CreateRentalDto, UpdateRentalDto } from './dto/rental.dto';
-import { BaseResponse } from '../../utils/config/interfaces';
+import { BaseResponse } from '../../utils/config/types';
 
 @Controller('rental')
 export class RentalController {

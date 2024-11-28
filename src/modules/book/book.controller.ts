@@ -10,7 +10,7 @@ import {
   Query,
 } from '@nestjs/common';
 import { BookService } from './book.service';
-import { BaseResponse } from '../../utils/config/interfaces';
+import { BaseResponse } from '../../utils/config/types';
 import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
 
 @Controller('book')

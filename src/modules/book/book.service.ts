@@ -4,7 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { PrismaService } from '../../utils/prisma';
-import { BaseResponse } from '../../utils/config/interfaces';
+import { BaseResponse } from '../../utils/config/types';
 import { I18nService } from 'nestjs-i18n';
 import { Book } from '@prisma/client';
 import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
