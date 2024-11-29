@@ -266,4 +266,57 @@ export class RentalService implements IRentalService {
       throw error;
     }
   }
+
+  async returnRental(id: string, userId: number) {
+    try {
+      const rental = await this.prismaService.$transaction(async (prisma) => {
+        // Find the existing rental with its associated book
+        const existingRental = await prisma.rental.findUnique({
+          where: { id, userId },
+          include: { book: true },
+        });
+
+        // Check if rental exists
+        if (!existingRental) {
+          throw new NotFoundException(this.i18nService.t('rental.NOT_FOUND'));
+        }
+
+        // Check if the rental is already returned
+        if (existingRental.returnedDate) {
+          throw new BadRequestException(
+            this.i18nService.t('rental.ALREADY_RETURNED'),
+          );
+        }
+
+        // Update the rental with the return date (current timestamp)
+        const updatedRental = await prisma.rental.update({
+          where: { id },
+          data: {
+            returnedDate: new Date(),
+          },
+          include,
+        });
+
+        // Increment available copies for the book
+        await prisma.book.update({
+          where: { id: existingRental.bookId },
+          data: {
+            available_copies: existingRental.book.available_copies + 1,
+          },
+        });
+
+        return updatedRental;
+      });
+
+      return rental;
+    } catch (error) {
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        throw new BadRequestException({
+          message: this.i18nService.t('rental.RETURN_FAILED'),
+          error,
+        });
+      }
+      throw error;
+    }
+  }
 }

@@ -11,13 +11,13 @@ import {
   HeaderResolver,
 } from 'nestjs-i18n';
 
+console.log(process.env.NODE_ENV);
 import { UtilsModule } from './utils/utils.module';
 @Module({
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath:
-        process.env.NODE_ENV === 'production' ? '.env' : '.env.development',
+      envFilePath: `.env.${process.env.NODE_ENV}`,
       validationSchema: ConfigSchema,
     }),
 

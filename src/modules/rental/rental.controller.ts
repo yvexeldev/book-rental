@@ -9,15 +9,20 @@ import {
   DefaultValuePipe,
   ParseIntPipe,
   Put,
+  UseGuards,
 } from '@nestjs/common';
 import { RentalService } from './rental.service';
 import { CreateRentalDto, UpdateRentalDto } from './dto/rental.dto';
-import { BaseResponse } from '../../utils/config/types';
+import { BaseResponse, UserEntity } from '../../utils/config/types';
+import { UserGuard } from 'src/utils/guard/user.guard';
+import { AdminGuard } from 'src/utils/guard/admin.guard';
+import { User } from 'src/utils/decorators/get-user';
 
 @Controller('rental')
 export class RentalController {
   constructor(private readonly rentalService: RentalService) {}
 
+  @UseGuards(UserGuard)
   @Post()
   async create(
     @Body() createRentalDto: CreateRentalDto,
@@ -26,6 +31,7 @@ export class RentalController {
     return { message: 'success', data: rental };
   }
 
+  @UseGuards(AdminGuard)
   @Get()
   async findAll(
     @Query('page', new DefaultValuePipe(1), ParseIntPipe) page: number,
@@ -39,6 +45,7 @@ export class RentalController {
     };
   }
 
+  @UseGuards(AdminGuard)
   @Get(':id')
   async findOne(@Param('id') id: string): Promise<BaseResponse> {
     const rental = await this.rentalService.findOne(id);
@@ -48,6 +55,7 @@ export class RentalController {
     };
   }
 
+  @UseGuards(AdminGuard)
   @Put(':id')
   async update(
     @Param('id') id: string,
@@ -60,12 +68,26 @@ export class RentalController {
     };
   }
 
+  @UseGuards(AdminGuard)
   @Delete(':id')
   async remove(@Param('id') id: string): Promise<BaseResponse> {
     const rental = await this.rentalService.remove(id);
     return {
       message: 'success',
       data: rental,
+    };
+  }
+
+  @UseGuards(UserGuard)
+  @Put('/returnRent/:id')
+  async returnRental(
+    @Param('id') id: string,
+    @User() user: UserEntity,
+  ): Promise<BaseResponse> {
+    const updatedRental = await this.rentalService.returnRental(id, user.id);
+    return {
+      message: 'success',
+      data: updatedRental,
     };
   }
 }

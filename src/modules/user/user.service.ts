@@ -184,14 +184,12 @@ export class UserService implements IUserService {
       const isExists = await prisma.user.findFirst({
         where: { id, isVerified: true },
       });
-      Logger.log({ isExists });
+
       if (isExists) {
         const user = await prisma.user.update({
           where: { id },
           data: updateUserDto,
         });
-
-        Logger.log({ user, updateUserDto });
 
         return {
           message: this.i18n.t('user.UPDATE'),
@@ -226,8 +224,6 @@ export class UserService implements IUserService {
       data: { username: setUsernameDto.username },
     });
 
-    Logger.log({ setUsernameDto });
-
     return {
       message: this.i18n.t('user.UPDATE'),
       data: { updatedUser: user },
@@ -245,6 +241,7 @@ export class UserService implements IUserService {
         data: { users },
       };
     }
+
     const users = await this.prismaService.user.findMany();
 
     return {

@@ -8,10 +8,12 @@ import {
   Post,
   Put,
   Query,
+  UseGuards,
 } from '@nestjs/common';
 import { BookService } from './book.service';
 import { BaseResponse } from '../../utils/config/types';
 import { CreateBookDto, UpdateBookDto } from './dto/book.dto';
+import { AdminGuard } from 'src/utils/guard/admin.guard';
 
 @Controller('book')
 export class BookController {
@@ -47,6 +49,7 @@ export class BookController {
     return { message: 'success', data: book };
   }
 
+  @UseGuards(AdminGuard)
   @Post()
   async createBook(
     @Body() createBookDto: CreateBookDto,
@@ -55,6 +58,7 @@ export class BookController {
     return { message: 'success', data: book };
   }
 
+  @UseGuards(AdminGuard)
   @Put('/:id')
   async updateBook(
     @Param('id', ParseIntPipe) id: number,
@@ -64,6 +68,7 @@ export class BookController {
     return { message: 'success', data: book };
   }
 
+  @UseGuards(AdminGuard)
   @Delete('/:id')
   async deleteBook(
     @Param('id', ParseIntPipe) id: number,

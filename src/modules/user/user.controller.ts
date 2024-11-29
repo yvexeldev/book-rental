@@ -22,10 +22,14 @@ import {
 import { BaseResponse, UserEntity } from '../../utils/config/types';
 import { UserGuard } from 'src/utils/guard/user.guard';
 import { User } from 'src/utils/decorators/get-user';
+import { SuperAdminGuard } from 'src/utils/guard/super-admin.guard';
+import { AdminGuard } from 'src/utils/guard/admin.guard';
 
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
+
+  @UseGuards(SuperAdminGuard)
   @Get('users')
   async getAllUsers(
     @Query('isVerified') isVerified?: string,
@@ -33,6 +37,7 @@ export class UserController {
     return await this.userService.getAllusers(isVerified);
   }
 
+  @UseGuards(AdminGuard)
   @Delete('unverified')
   async deleteUnverifiedUsers() {
     return await this.userService.deleteUnverifiedUsers();
@@ -53,6 +58,7 @@ export class UserController {
     return await this.userService.verifyOtp(verifyOtpDto);
   }
 
+  @UseGuards(UserGuard)
   @Get('/:id')
   async getUserById(
     @Param('id', ParseIntPipe) id: number,
@@ -64,6 +70,7 @@ export class UserController {
     };
   }
 
+  @UseGuards(AdminGuard)
   @Get('/email/:email')
   async getUserByEmail(@Param('email') email: string): Promise<BaseResponse> {
     const user = await this.userService.getUserByEmail(email);
@@ -73,12 +80,13 @@ export class UserController {
     };
   }
 
+  @UseGuards(UserGuard)
   @Put('/:id')
   async updateUser(
-    @Param('id', ParseIntPipe) id: number,
+    @User() user: UserEntity,
     @Body() updateUserDto: UpdateUserDto,
   ): Promise<BaseResponse> {
-    return await this.userService.updateUser(id, updateUserDto);
+    return await this.userService.updateUser(user.id, updateUserDto);
   }
 
   @UseGuards(UserGuard)
