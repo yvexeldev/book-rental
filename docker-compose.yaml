@@ -1,0 +1,60 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: book-rent
+    depends_on:
+      - postgres
+      - redis
+      - rabbitmq
+    env_file:
+      - .env.production
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    volumes:
+      - ./:/app
+      - /app/node_modules
+
+  redis:
+    env_file:
+      - .env.production
+    image: redis:7
+    container_name: book-rent-redis
+    ports:
+      - ${REDIS_PORT}:6379
+    volumes:
+      - redis-data:/data
+
+  rabbitmq:
+    env_file:
+      - .env.production
+    image: rabbitmq:3-management
+    container_name: book-rent-rabbitmq
+    ports:
+      - ${RABBITMQ_PORT}:5672
+      - ${RABBITMQ_MANAGEMENT_PORT}:15672
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+
+  postgres:
+    env_file:
+      - .env.production
+    image: postgres:15
+    container_name: book-rent-postgres
+    restart: unless-stopped
+    ports:
+      - ${DATABASE_PORT}:5432
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_NAME}
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+volumes:
+  postgres-data:
+  redis-data:
+  rabbitmq-data:

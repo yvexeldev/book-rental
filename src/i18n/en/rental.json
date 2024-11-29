@@ -6,5 +6,6 @@
   "INVALID_RENTAL_PERIOD": "Invalid rental period specified",
   "ALREADY_RETURNED": "Book has already been returned",
   "OVERDUE": "Rental is overdue",
-  "CANNOT_UPDATE_RETURNED": "Cannot update a returned rental"
+  "CANNOT_UPDATE_RETURNED": "Cannot update a returned rental",
+  "RETURN_FAILED": "Rental return failed!"
 }

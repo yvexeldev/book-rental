@@ -6,5 +6,6 @@
   "INVALID_RENTAL_PERIOD": "Noto'g'ri ijara muddati ko'rsatilgan",
   "ALREADY_RETURNED": "Kitob allaqachon qaytarilgan",
   "OVERDUE": "Ijara muddati o'tib ketgan",
-  "CANNOT_UPDATE_RETURNED": "Qaytarilgan ijarani yangilash mumkin emas"
+  "CANNOT_UPDATE_RETURNED": "Qaytarilgan ijarani yangilash mumkin emas",
+  "RETURN_FAILED": "Rental return failed!"
 }
