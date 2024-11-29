@@ -4,96 +4,10 @@
 
 This Book Rental API provides a comprehensive backend service for managing book rentals, including user authentication, book management, and rental operations.
 
-## 📋 Environment Configuration
-
-### Environment Variables Overview
-
-#### Main Environment File (`.env`)
-
-| Variable | Description | Example Value |
-|----------|-------------|---------------|
-| `DATABASE_USER` | PostgreSQL database username | `postgres` |
-| `DATABASE_URL` | PostgreSQL connection string | `postgresql://postgres:5432r@localhost:5432/bookrental?schema=public` |
-| `DATABASE_PASSWORD` | PostgreSQL database password | `5432r` |
-| `DATABASE_NAME` | Database name | `bookrental` |
-| `DATABASE_PORT` | Database connection port | `5432` |
-| `REDIS_PORT` | Redis server port | `6379` |
-| `RABBITMQ_DEFAULT_USER` | RabbitMQ default username | `guest` |
-| `RABBITMQ_DEFAULT_PASS` | RabbitMQ default password | `guest` |
-| `RABBITMQ_PORT` | RabbitMQ message broker port | `5672` |
-| `RABBITMQ_MANAGEMENT_PORT` | RabbitMQ management UI port | `15672` |
-| `APP_PORT` | Application listening port | `4000` |
-| `JWT_SECRET` | Secret key for JWT token generation | `secret` |
-| `I18N_FALLBACK_LANGUAGE` | Fallback language for internationalization | `"en"` |
-| `HOST` | Application host | `localhost` |
-| `SMTP_USER` | SMTP email for sending notifications | `abdusalomovdev@gmail.com` |
-| `SMTP_PASSWORD` | SMTP email password | `fsvs xaii eqso kuvp` |
-| `REDIS_HOST` | Redis server hostname | `localhost` |
-| `RABBITMQ_URI` | RabbitMQ connection URI | `amqp://guest:guest@127.0.0.1:5672/` |
-
-### Environment Variations
-
-#### Development vs Production
-- `.env`: Local development configuration
-- `.env.development`: Development-specific settings
-- `.env.production`: Production deployment settings
-
-## 🐳 Docker Compose Configuration
-
-### Services Overview
-
-1. **Application Service (`app`)**
-   - Builds application from Dockerfile
-   - Depends on PostgreSQL, Redis, and RabbitMQ
-   - Mounts project directory
-   - Uses production environment file
-
-2. **Redis Service (`redis`)**
-   - Uses Redis 7 image
-   - Persistent volume for data storage
-   - Exposes Redis port
-
-3. **RabbitMQ Service (`rabbitmq`)**
-   - Uses RabbitMQ 3 management image
-   - Exposes message broker and management ports
-   - Persistent volume for data storage
-
-4. **PostgreSQL Service (`postgres`)**
-   - Uses PostgreSQL 15 image
-   - Configures database user, password, and name
-   - Persistent volume for database storage
-
-### Docker Compose Volumes
-- `postgres-data`: PostgreSQL data persistence
-- `redis-data`: Redis data persistence
-- `rabbitmq-data`: RabbitMQ data persistence
-
-## 🚢 Dockerfile Breakdown
-
-### Build Stage
-- Base Image: `node:20-alpine`
-- Steps:
-  1. Set working directory to `/app`
-  2. Copy `package.json` and `package-lock.json`
-  3. Install dependencies with `npm ci`
-  4. Copy entire project
-  5. Generate Prisma client
-  6. Build application
-
-### Production Stage
-- Base Image: `node:20-alpine`
-- Steps:
-  1. Install only production dependencies
-  2. Copy built assets from builder stage
-  3. Copy Prisma client and schema
-  4. Expose port `3000`
-  5. Set `NODE_ENV` to production
-  6. Run database migrations
-  7. Start production server
-
 ## 🛠 Setup and Deployment
 
 ### Local Development
+
 1. Clone repository
 2. Copy `.env.example` to `.env`
 3. Modify environment variables
@@ -101,6 +15,7 @@ This Book Rental API provides a comprehensive backend service for managing book 
 5. Start services with `npm run start:dev`
 
 ### Docker Deployment
+
 ```bash
 # Build and start services
 docker-compose up --build
@@ -112,19 +27,116 @@ docker-compose down
 docker-compose build app
 ```
 
+## 📋 Environment Configuration
+
+### Environment Variables Overview
+
+#### Main Environment File (`.env`)
+
+| Variable                   | Description                                | Example Value                                                         |
+| -------------------------- | ------------------------------------------ | --------------------------------------------------------------------- |
+| `DATABASE_USER`            | PostgreSQL database username               | `postgres`                                                            |
+| `DATABASE_URL`             | PostgreSQL connection string               | `postgresql://postgres:5432r@localhost:5432/bookrental?schema=public` |
+| `DATABASE_PASSWORD`        | PostgreSQL database password               | `5432r`                                                               |
+| `DATABASE_NAME`            | Database name                              | `bookrental`                                                          |
+| `DATABASE_PORT`            | Database connection port                   | `5432`                                                                |
+| `REDIS_PORT`               | Redis server port                          | `6379`                                                                |
+| `RABBITMQ_DEFAULT_USER`    | RabbitMQ default username                  | `guest`                                                               |
+| `RABBITMQ_DEFAULT_PASS`    | RabbitMQ default password                  | `guest`                                                               |
+| `RABBITMQ_PORT`            | RabbitMQ message broker port               | `5672`                                                                |
+| `RABBITMQ_MANAGEMENT_PORT` | RabbitMQ management UI port                | `15672`                                                               |
+| `APP_PORT`                 | Application listening port                 | `4000`                                                                |
+| `JWT_SECRET`               | Secret key for JWT token generation        | `secret`                                                              |
+| `I18N_FALLBACK_LANGUAGE`   | Fallback language for internationalization | `"en"`                                                                |
+| `HOST`                     | Application host                           | `localhost`                                                           |
+| `SMTP_USER`                | SMTP email for sending notifications       | `abdusalomovdev@gmail.com`                                            |
+| `SMTP_PASSWORD`            | SMTP email password                        | `fsvs xaii eqso kuvp`                                                 |
+| `REDIS_HOST`               | Redis server hostname                      | `localhost`                                                           |
+| `RABBITMQ_URI`             | RabbitMQ connection URI                    | `amqp://guest:guest@127.0.0.1:5672/`                                  |
+
+### Environment Variations
+
+#### Development vs Production
+
+- `.env`: Local development configuration
+- `.env.development`: Development-specific settings
+- `.env.production`: Production deployment settings
+
+## 🐳 Docker Compose Configuration
+
+### Services Overview
+
+1. **Application Service (`app`)**
+
+   - Builds application from Dockerfile
+   - Depends on PostgreSQL, Redis, and RabbitMQ
+   - Mounts project directory
+   - Uses production environment file
+
+2. **Redis Service (`redis`)**
+
+   - Uses Redis 7 image
+   - Persistent volume for data storage
+   - Exposes Redis port
+
+3. **RabbitMQ Service (`rabbitmq`)**
+
+   - Uses RabbitMQ 3 management image
+   - Exposes message broker and management ports
+   - Persistent volume for data storage
+
+4. **PostgreSQL Service (`postgres`)**
+   - Uses PostgreSQL 15 image
+   - Configures database user, password, and name
+   - Persistent volume for database storage
+
+### Docker Compose Volumes
+
+- `postgres-data`: PostgreSQL data persistence
+- `redis-data`: Redis data persistence
+- `rabbitmq-data`: RabbitMQ data persistence
+
+## 🚢 Dockerfile Breakdown
+
+### Build Stage
+
+- Base Image: `node:20-alpine`
+- Steps:
+  1. Set working directory to `/app`
+  2. Copy `package.json` and `package-lock.json`
+  3. Install dependencies with `npm ci`
+  4. Copy entire project
+  5. Generate Prisma client
+  6. Build application
+
+### Production Stage
+
+- Base Image: `node:20-alpine`
+- Steps:
+  1. Install only production dependencies
+  2. Copy built assets from builder stage
+  3. Copy Prisma client and schema
+  4. Expose port `3000`
+  5. Set `NODE_ENV` to production
+  6. Run database migrations
+  7. Start production server
+
 ## 🔒 Security Considerations
+
 - Use strong, unique passwords
 - Keep `.env` files out of version control
 - Use environment-specific configurations
 - Rotate JWT secrets and SMTP credentials
 
 ## 📦 Recommended Tooling
+
 - Docker Desktop
 - VSCode with Docker extension
 - Postman for API testing
 - pgAdmin for database management
 
 ## 🚨 Troubleshooting
+
 - Ensure all services are running
 - Check port availability
 - Verify environment variable consistency
@@ -273,4 +285,3 @@ The API returns appropriate HTTP status codes and error messages for various sce
 3. Commit your changes
 4. Push to the branch
 5. Create a Pull Request
-
