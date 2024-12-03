@@ -1,16 +1,16 @@
 import { $Enums } from '@prisma/client';
 
 export type BaseResponse = {
-  message: string;
-  data: object | null;
+    message: string;
+    data: object | null;
 };
 
 export type JwtPayload = {
-  sub: number;
-  role: $Enums.Role;
+    sub: number;
+    role: $Enums.Role;
 };
 
 export type UserEntity = {
-  id: number;
-  role: $Enums.Role;
+    id: number;
+    role: $Enums.Role;
 };

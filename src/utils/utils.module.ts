@@ -4,6 +4,6 @@ import { RedisModule } from './redis/redis.module';
 import { MailModule } from './mail/mail.module';
 
 @Module({
-  imports: [PrismaModule, RedisModule, MailModule],
+    imports: [PrismaModule, RedisModule, MailModule],
 })
 export class UtilsModule {}

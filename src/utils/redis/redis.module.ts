@@ -7,19 +7,19 @@ import { RedisClient } from '../config/constants';
 
 @Global()
 @Module({
-  providers: [
-    {
-      provide: RedisClient,
-      useFactory: (configService: ConfigService) => {
-        return new Redis({
-          host: configService.get<string>('REDIS_HOST'),
-          port: configService.get<number>('REDIS_PORT'),
-        });
-      },
-      inject: [ConfigService],
-    },
-    RedisService,
-  ],
-  exports: [RedisClient, RedisService],
+    providers: [
+        {
+            provide: RedisClient,
+            useFactory: (configService: ConfigService) => {
+                return new Redis({
+                    host: configService.get<string>('REDIS_HOST'),
+                    port: configService.get<number>('REDIS_PORT'),
+                });
+            },
+            inject: [ConfigService],
+        },
+        RedisService,
+    ],
+    exports: [RedisClient, RedisService],
 })
 export class RedisModule {}

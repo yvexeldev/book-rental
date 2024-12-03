@@ -4,8 +4,8 @@ import { BookModule } from './book/book.module';
 import { RentalModule } from './rental/rental.module';
 
 @Module({
-  providers: [],
-  imports: [UserModule, BookModule, RentalModule],
-  exports: [],
+    providers: [],
+    imports: [UserModule, BookModule, RentalModule],
+    exports: [],
 })
 export class IndexModule {}
